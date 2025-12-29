@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>LeetSave - Made by Sai Mohit</title>
+  <link rel="stylesheet" href="popup.css">
+  <style>
+    /* small inline tweaks for the toggle area */
+    .toggle-area {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top: 10px;
+      gap: 12px;
+    }
+    #toggleDifficulty {
+      background: none;
+      border: 1px solid #ffa116;
+      color: #ffa116;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #toggleDifficulty.active {
+      background: #ffa116;
+      color: #222;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LeetSave</h1>
+  <p style="font-size:13px; color:#222; margin-top:6px; margin-bottom:0;">Save & manage LeetCode profiles. Toggle difficulty hider for LeetCode.</p>
+  </header>
+
+  <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-top:10px;">
+    <button id="platformLeetCode" class="platform-switch active">LeetCode</button>
+    <!-- Global info icon and refresh (applies to all saved profiles) -->
+    <div style="display:flex; align-items:center; gap:8px;" class="global-controls">
+      <button id="globalRefresh" class="global-refresh" title="Refresh solved counts for all saved profiles">⟳</button>
+      <button id="globalInfo" class="global-info" title="Questions solved today requires at least 1 day after adding a profile. Hover to learn more.">ⓘ</button>
+    </div>
+  </div>
+
+  <div class="toggle-area">
+    <div style="font-size:13px; color:#ddd;">Difficulty Hider</div>
+    <button id="toggleDifficulty">Loading...</button>
+  </div>
+
+  <!-- LeetSync moved to a separate page. Open via the Configure GitHub Sync button. -->
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search saved profiles...">
+  </div>
+
+  <ul id="profileList"></ul>
+  
+
+  <div class="buttons" style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+    <div style="display:flex; gap:8px; align-items:center;">
+      <button id="clearAll">Clear All</button>
+    </div>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <button id="configureGithub" class="platform-switch">Configure GitHub Sync</button>
+      <button id="exportBtn">Export</button>
+      <input type="file" id="importBtn" accept=".json">
+    </div>
+  </div>
+
+  <footer style="text-align:center; margin-top:18px; display:flex; flex-direction:column; align-items:center; gap:8px;">
+    <div style="display:flex; justify-content:center; align-items:center; gap:18px;">
+      <a href="https://github.com/Mohitlikestocode" target="_blank" title="GitHub" style="display:inline-block;">
+        <img src="icons/github.png" alt="GitHub" style="width:26px; height:26px; vertical-align:middle;">
+      </a>
+      <a href="https://x.com/MohitLearning" target="_blank" title="Twitter" style="display:inline-block;">
+        <img src="icons/twitter.png" alt="Twitter" style="width:22px; height:22px; vertical-align:middle;">
+      </a>
+    </div>
+    <div style="margin-top:4px; font-size:13px; color:#aaa; display:flex; justify-content:center; align-items:center; gap:12px;">
+      <span>Made by Sai Mohit</span>
+      <a href="https://buymeacoffee.com/saimohit" target="_blank" style="color:#ffa116; text-decoration:none; font-weight:bold; font-size:13px; display:flex; align-items:center; gap:4px;">
+        <span style="font-size:18px;">☕</span> Buy me a coffee
+      </a>
+    </div>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

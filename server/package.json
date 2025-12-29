@@ -1,0 +1,16 @@
+{
+  "name": "leetsave-github-server",
+  "version": "0.1.0",
+  "description": "A small server to perform GitHub commits on behalf of a LeetSave browser extension using a GitHub App.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@octokit/auth-app": "^4.1.0",
+    "@octokit/rest": "^19.0.7",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  }
+}

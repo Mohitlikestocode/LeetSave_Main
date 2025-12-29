@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>LeetSync - Configure GitHub Sync</title>
+  <link rel="stylesheet" href="popup.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #1a1a1a;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: #222;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+      /* Force a wider desktop width so the card is visibly larger in popup/tab */
+      width: 1000px;
+      max-width: 1600px;
+      min-width: 680px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      max-height: 90vh;
+      /* Center in available viewport */
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      margin: 0 0 8px 0;
+      color: #ffa116;
+      font-size: 22px;
+    }
+
+    h3 {
+      color: #ffa116;
+      margin-bottom: 6px;
+    }
+
+    .muted {
+      color: #aaa;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: #111;
+      color: #fff;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]::placeholder,
+    input[type="password"]::placeholder {
+      color: #777;
+    }
+
+    button {
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 8px 12px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #ls-reveal {
+      background: #444;
+      color: #ffa116;
+    }
+
+    #ls-remove {
+      background: #e55353;
+      color: #fff;
+    }
+
+    #ls-verify {
+      background: #ffa116;
+      color: #222;
+      font-weight: bold;
+    }
+
+    #ls-showdetails {
+      background: #444;
+      color: #ffa116;
+    }
+
+    #ls-testcommit {
+      background: #2b8cff;
+      color: #fff;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 14px;
+    }
+
+    #ls-details {
+      background: #111;
+      padding: 8px;
+      margin-top: 10px;
+      max-height: 240px;
+      overflow: auto;
+      display: none;
+      border-radius: 6px;
+      border: 1px solid #333;
+      font-family: monospace;
+      font-size: 13px;
+      color: #ffa116;
+    }
+
+    #ls-verify-status {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #ffa116;
+    }
+
+    hr {
+      margin: 18px 0;
+      border: none;
+      border-top: 1px solid #333;
+    }
+
+    ol {
+      color: #ccc;
+      padding-left: 20px;
+      font-size: 14px;
+    }
+
+    code {
+      background: #333;
+      color: #ffa116;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    a {
+      color: #ffa116;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .reveal-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #ffa116;
+      color: #222;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
+    }
+
+    /* Make the layout responsive: below 1100px treat as small screen */
+    @media (max-width: 1100px) {
+      .card {
+        padding: 18px;
+        width: 95%;
+        min-width: unset;
+      }
+      h1 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card" id="leetsync-card">
+    <h1>LeetSync — GitHub Commit Settings</h1>
+    <div class="muted">A secure, single-repo Personal Access Token (PAT) flow. Tokens are stored locally.</div>
+
+    <div id="leetsync-form" style="display:none;">
+      <label>Repository (owner/repo or full GitHub URL)</label>
+      <input id="ls-repo" type="text" placeholder="https://github.com/owner/repo or owner/repo">
+
+      <label>GitHub Personal Access Token (PAT)</label>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <input id="ls-pat" type="password" placeholder="Paste your PAT here" style="flex:1">
+        <button id="ls-reveal">Reveal</button>
+      </div>
+
+      <div style="margin-top:8px; display:flex; align-items:center; gap:8px;">
+        <input id="ls-autocommit" type="checkbox">
+        <label for="ls-autocommit" style="margin:0; font-weight:normal;">Enable auto-commit on Accepted submissions</label>
+      </div>
+
+
+      <div class="actions">
+        <button id="ls-verify">Verify & Save</button>
+        <button id="ls-testcommit">Run test commit</button>
+        <button id="ls-opengithub">Open on GitHub (manual)</button>
+      </div>
+
+      <pre id="ls-details"></pre>
+      <div id="ls-verify-status"></div>
+
+      <div style="margin-top:10px; color:#aaa; font-size:12px">
+        Security note: Use a fine-grained PAT limited to this repository (Contents: Read & write). Revoke tokens at
+        <a href="https://github.com/settings/tokens" target="_blank">https://github.com/settings/tokens</a>
+      </div>
+      <div style="margin-top:10px;">
+        <button id="ls-pat-help" style="background:#ffc107; color:#222; border:none; padding:6px 10px; border-radius:6px;">Help: Create recommended PAT</button>
+      </div>
+    </div>
+
+    <hr>
+    <h3>How to connect?</h3>
+    <ol>
+      <li>Open your GitHub repository and copy its URL (or use <code>owner/repo</code>).</li>
+      <li>Generate a fine-grained PAT: Settings → Developer settings → Personal access tokens → Fine-grained tokens.</li>
+      <li>Set Repository access to <strong>Only select repositories</strong> and choose your repo. Grant <strong>Contents: Read & write</strong>.</li>
+      <li>Copy the token (shown only once) and paste it here, then click Verify & Save.</li>
+    </ol>
+
+    <div style="margin-top:14px; font-size:13px; color:#ddd;">
+      After verification, when you get an Accepted submission on LeetCode,
+      an overlay will appear allowing you to commit the solution to your repository.
+      Commits only happen when you click the Commit button.
+    </div>
+  </div>
+
+  <button id="revealForm" class="reveal-btn">Configure GitHub Sync</button>
+
+  <script src="github_handler.js"></script>
+  <script src="leetsync.js"></script>
+</body>
+</html>
