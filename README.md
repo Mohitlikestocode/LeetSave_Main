@@ -3,7 +3,6 @@
 <div align="center">
 
 ![LeetSave](https://img.shields.io/badge/Chrome%20Extension-Manifest%20V3-brightgreen?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
 ![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red?style=flat-square)
 
 **Save profiles. Track progress. Stay inspired. Compete with friends.**
