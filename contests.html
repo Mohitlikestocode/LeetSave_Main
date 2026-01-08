@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>LeetSave - Contests</title>
+  <link rel="stylesheet" href="popup.css">
+  <style>
+    .contests-header-note { font-size: 12px; color: #222; margin-top: 6px; }
+    .filters { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+    .contest-card {
+      background:#111; border:1px solid #333; border-radius:8px; padding:10px;
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .contest-title { font-size:14px; font-weight:bold; color:#fff; }
+    .contest-meta { font-size:12px; color:#ddd; }
+    .status-chip { font-size:11px; padding:2px 6px; border-radius:999px; }
+    .status-ongoing { background:#0f5132; color:#d1fae5; }
+    .status-upcoming { background:#222; color:#ffa116; border:1px solid #ffa116; }
+    .status-ended { background:#5c2020; color:#ffd6d6; }
+    .muted { color:#bbb; }
+    .list { display:flex; flex-direction:column; gap:10px; max-height:380px; overflow-y:auto; }
+    .list::-webkit-scrollbar { width:7px; background:#222; border-radius:6px; }
+    .list::-webkit-scrollbar-thumb { background:#ffa116; border-radius:6px; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .right-actions { display:flex; align-items:center; gap:8px; }
+    .link-btn { background:none; border:1px solid rgba(255,255,255,0.06); color:#ffa116; padding:6px 8px; border-radius:6px; cursor:pointer; font-size:12px; }
+    .link-btn.spinning { animation: ls-rotate 800ms linear infinite; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div>
+        <h1 style="margin:0; font-size:20px; color:#000;">Contests</h1>
+        <p class="contests-header-note">Upcoming coding contests from popular platforms</p>
+      </div>
+      <div class="right-actions">
+        <button id="refreshContests" class="link-btn" title="Refresh">⟳</button>
+        <button id="openHome" class="link-btn" title="Open popup">Home</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="filters">
+    <button class="platform-switch" data-filter="All">All</button>
+    <button class="platform-switch" data-filter="Ongoing">Ongoing</button>
+    <button class="platform-switch" data-filter="In24">In next 24hrs</button>
+    <button class="platform-switch" data-filter="In7">In next 7days</button>
+  </div>
+
+  <div id="status" style="font-size:12px; color:#aaa; margin-bottom:6px;"></div>
+  <div id="contestList" class="list"></div>
+
+  <script src="contests.js"></script>
+</body>
+</html>

@@ -14,8 +14,20 @@
   color: #222;
   font-weight: bold;
 }
+
+/* Tools row */
+.tools-row { display:flex; gap:12px; margin-top:8px; }
+.tools-row .platform-switch { flex:1; border-radius:12px; padding:10px 14px; font-weight:600; }
+
+/* Settings row for single-line toggle */
+.settings-row { display:flex; align-items:center; justify-content:space-between; margin: 14px 0; }
+.settings-label { font-size: 16px; color:#ddd; font-weight:600; }
+.switch { position: relative; display:inline-flex; align-items:center; gap:8px; background:#222; color:#ffa116; border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:6px 12px; cursor:pointer; }
+.switch.on { background:#333; }
+.switch-text { font-weight:700; }
+.switch-knob { width:22px; height:22px; background:#ffa116; border-radius:999px; display:inline-block; }
 body {
-  width: 300px;
+  width: 420px;
   font-family: Arial, sans-serif;
   background-color: #1a1a1a;
   color: #fff;
@@ -27,7 +39,7 @@ header {
   background-color: #ffa116;
   padding: 12px;
   text-align: center;
-  border-radius: 6px 6px 0 0;
+  border-radius: 12px;
 }
 
 header h1 {
@@ -187,7 +199,58 @@ ul#profileList::-webkit-scrollbar-thumb {
   text-decoration: underline;
 }
 
-/* Removed export / import since you said you don’t want them */
-#exportBtn, #importBtn {
-  display: none;
+/* Keep export/import hidden by default */
+#exportBtn, #importBtn { display: none; }
+
+/* Outer rounded container */
+.popup-card {
+  background: #0f0f0f;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  padding: 10px;
 }
+
+/* Tools row */
+.tools-row { display:flex; gap:12px; margin-top:8px; }
+.tools-row .platform-switch { flex:1; border-radius:12px; padding:10px 14px; font-weight:600; }
+
+/* Contests embedded view styles */
+.contests-header { display:flex; align-items:center; justify-content:space-between; margin-bottom: 6px; }
+.back-btn { background:#222; color:#ffa116; border:1px solid rgba(255,255,255,0.06); padding:6px 12px; border-radius:12px; cursor:pointer; }
+.contests-title { flex:1; text-align:center; font-weight:700; font-size:20px; color:#ffa116; }
+
+.filters .platform-switch { border-radius:12px; padding:10px 14px; font-weight:600; }
+.filters { border-top:1px solid #2a2a2a; border-bottom:1px solid #2a2a2a; padding:8px 0; }
+
+.contest-card { background:#121212; border:1px solid #2a2a2a; border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:10px; }
+.contest-title a { color:#fff; text-decoration:underline; font-weight:700; font-size:16px; }
+.contest-meta { color:#ddd; font-size:13px; }
+.contest-footer { display:flex; align-items:center; justify-content:space-between; }
+.platform-row { display:flex; align-items:center; gap:8px; color:#ddd; font-size:14px; }
+.platform-icon { width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; }
+.start-badge { border:2px solid #ffa116; color:#ffa116; border-radius:20px; padding:8px 12px; font-weight:700; font-size:16px; display:inline-flex; align-items:center; justify-content:center; min-width:120px; text-align:center; }
+
+.list { display:flex; flex-direction:column; gap:12px; max-height:260px; overflow-y:auto; }
+.list::-webkit-scrollbar { width:7px; background:#222; border-radius:6px; }
+.list::-webkit-scrollbar-thumb { background:#ffa116; border-radius:6px; }
+
+/* Contests embedded view styles */
+.contests-header { display:flex; align-items:center; justify-content:space-between; margin-bottom: 6px; }
+.back-btn { background:#222; color:#ffa116; border:1px solid rgba(255,255,255,0.06); padding:6px 12px; border-radius:12px; cursor:pointer; }
+.contests-title { flex:1; text-align:center; font-weight:700; font-size:20px; color:#ffa116; }
+
+.filters .platform-switch { border-radius:12px; padding:10px 14px; font-weight:600; }
+.filters { border-top:1px solid #2a2a2a; border-bottom:1px solid #2a2a2a; padding:8px 0; }
+
+.contest-card { background:#121212; border:1px solid #2a2a2a; border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:10px; }
+.contest-title a { color:#fff; text-decoration:underline; font-weight:700; font-size:16px; }
+.contest-meta { color:#ddd; font-size:13px; }
+.contest-footer { display:flex; align-items:center; justify-content:space-between; }
+.platform-row { display:flex; align-items:center; gap:8px; color:#ddd; font-size:14px; }
+.platform-icon { width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; }
+.start-badge { border:2px solid #ffa116; color:#ffa116; border-radius:20px; padding:8px 12px; font-weight:700; font-size:16px; display:inline-flex; align-items:center; justify-content:center; min-width:120px; text-align:center; }
+
+.list { display:flex; flex-direction:column; gap:12px; max-height:260px; overflow-y:auto; }
+.list::-webkit-scrollbar { width:7px; background:#222; border-radius:6px; }
+.list::-webkit-scrollbar-thumb { background:#ffa116; border-radius:6px; }

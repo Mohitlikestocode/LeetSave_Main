@@ -29,43 +29,68 @@
   </style>
 </head>
 <body>
+  <div class="popup-card">
   <header>
     <h1>LeetSave</h1>
   <p style="font-size:13px; color:#222; margin-top:6px; margin-bottom:0;">Save & manage LeetCode profiles. Toggle difficulty hider for LeetCode.</p>
   </header>
 
-  <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-top:10px;">
-    <button id="platformLeetCode" class="platform-switch active">LeetCode</button>
-    <!-- Global info icon and refresh (applies to all saved profiles) -->
-    <div style="display:flex; align-items:center; gap:8px;" class="global-controls">
-      <button id="globalRefresh" class="global-refresh" title="Refresh solved counts for all saved profiles">⟳</button>
-      <button id="globalInfo" class="global-info" title="Questions solved today requires at least 1 day after adding a profile. Hover to learn more.">ⓘ</button>
+  <!-- Tools section -->
+  <section style="margin-top:10px;">
+    <div style="display:flex; align-items:center; justify-content:space-between;">
+      <h3 style="margin:6px 0; font-size:14px; color:#bbb;">Tools</h3>
     </div>
+    <div class="tools-row">
+      <button id="openContestsTab" class="platform-switch">Contests</button>
+      <button id="configureGithub" class="platform-switch">GitHub Sync</button>
+    </div>
+  </section>
+
+  <!-- Difficulty toggle (single line) -->
+  <div class="settings-row">
+    <div class="settings-label">Toggle difficulty</div>
+    <button id="difficultySwitch" class="switch"><span class="switch-text">ON</span><span class="switch-knob"></span></button>
   </div>
 
-  <div class="toggle-area">
-    <div style="font-size:13px; color:#ddd;">Difficulty Hider</div>
-    <button id="toggleDifficulty">Loading...</button>
-  </div>
+  <!-- Difficulty toggle moved into Tools row above -->
 
   <!-- LeetSync moved to a separate page. Open via the Configure GitHub Sync button. -->
 
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search saved profiles...">
+  <!-- Views container -->
+  <div id="mainView">
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search saved profiles...">
+    </div>
+
+    <ul id="profileList"></ul>
+
+    <div class="buttons" style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button id="clearAll">Clear All</button>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button id="exportBtn">Export</button>
+        <input type="file" id="importBtn" accept=".json">
+      </div>
+    </div>
   </div>
 
-  <ul id="profileList"></ul>
-  
+  <div id="contestsView" style="display:none; margin-top:10px;">
+    <div class="contests-header">
+      <button id="backToMain" class="back-btn">← Back</button>
+      <div class="contests-title">Contests</div>
+      <span style="width:52px"></span>
+    </div>
 
-  <div class="buttons" style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-    <div style="display:flex; gap:8px; align-items:center;">
-      <button id="clearAll">Clear All</button>
+    <div class="filters" style="display:flex; gap:8px; flex-wrap:wrap; margin:10px 0;">
+      <button class="platform-switch" data-filter="All">All</button>
+      <button class="platform-switch" data-filter="Ongoing">Ongoing</button>
+      <button class="platform-switch" data-filter="In24">In next 24hrs</button>
+      <button class="platform-switch" data-filter="In7">In next 7days</button>
     </div>
-    <div style="display:flex; gap:8px; align-items:center;">
-      <button id="configureGithub" class="platform-switch">Configure GitHub Sync</button>
-      <button id="exportBtn">Export</button>
-      <input type="file" id="importBtn" accept=".json">
-    </div>
+
+    <div id="status" style="font-size:12px; color:#aaa; margin-bottom:6px;"></div>
+    <div id="contestList" class="list"></div>
   </div>
 
   <footer style="text-align:center; margin-top:18px; display:flex; flex-direction:column; align-items:center; gap:8px;">
@@ -85,6 +110,7 @@
     </div>
   </footer>
 
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>
